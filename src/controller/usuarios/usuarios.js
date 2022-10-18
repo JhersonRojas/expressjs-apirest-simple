@@ -57,9 +57,9 @@ controlador.login = async (req,resp) => {
         where id_usuario = '${user}' and clave = '${pass}'`;   
         console.log("datos:",user, pass) 
 
-        let Good = "true";       let bad ="false";  
+        let Good = "true";       let bad ="false"; 
+
         conexion.query(sql, (error, results) => {
-            console.log(results.length)
             if ( results.length > 0) {
                 let token = jwt.sign({user:results}, process.env.AUTH_SECRET, {expiresIn: process.env.AUTH_EXPIRES});
                 resp.status(200).send({user:results,token:token,booleano:Good}); 
@@ -79,7 +79,7 @@ controlador.token = (req, res, nex) => {
     
     const decoded = jwt.verify(tokenUsuario,process.env.AUTH_SECRET, (error, decoded) => {
         if(error)
-            return res.status(402).json({autorizado: false, mensaje: 'El token no es correcto'});
+            return res.json({autorizado: false, mensaje: 'El token no es correcto'});
         else nex()
     })};
 
