@@ -79,7 +79,7 @@ controlador.token = (req, res, nex) => {
     
     const decoded = jwt.verify(tokenUsuario,process.env.AUTH_SECRET, (error, decoded) => {
         if(error)
-            return res.json({autorizado: false, mensaje: 'El token no es el correcto'});
+            return res.json({autorizado: false, mensaje: 'El token no es'});
         else nex()
     })};
 
