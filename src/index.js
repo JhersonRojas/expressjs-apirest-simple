@@ -22,5 +22,5 @@ app.use(require('./router/rutas'))
 
         // <---------------- Test ---------------->         
 app.get('/', (req,resp) => {
-        resp.send("Servidor iniciado")
+        resp.send("El servidor se inicio")
 })
