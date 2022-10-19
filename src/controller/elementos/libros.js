@@ -68,5 +68,40 @@ controlador.serial = (req,res) => {
     });
 } 
 
+controlador.reserLibros = (req,resp) =>{
+
+    try{
+        
+        let { fecha, usuario, serial } = req.body
+
+        let sqlr =  `Update elementos set Estado = 'No_Disponible' where Pk_Elemento = '${serial}'` 
+        
+        let sqlc = `insert into movimiento(Estado_Mv, Cantidad, Fecha_Inicio, Fk_elemento, Fk_usuario) 
+        values ('Solicitud', 1 , '${fecha}', '${serial}', ${usuario})`
+
+            conexion.query(sqlr, async(error,datos)=> { 
+    
+                    if(error){
+                        resp.send(error);
+                        console.log("Ocurrio un error en la reserva de un libro")
+    
+                    }
+            })
+
+            conexion.query(sqlc,(error,datos2)=> { 
+
+                if(error){ 
+                    resp.send(error);
+                    console.log('Error al conectar a la base de datos', error);
+                    }
+            })
+
+            resp.send({msj: "se realizo la reserva"})
+
+    } catch (error){
+        console.log("Exploto la reserva de los libros")
+    }
+};
+
      // <------------- Exportación del controlador ------------->         
         module.exports = controlador; 

@@ -88,6 +88,7 @@ rutas.get('/eliminarMovi/:id_Mo', controlMovimiento.eliminaMovimiento);
 
 	rutas.get('/computador/reservas', controlComputador.reservasComp)
 
+	rutas.post('/libro/reservar', controlLibros.reserLibros)
         // <------------ Exportacion del modulo ------------>   
           module.exports = rutas;
 		  
