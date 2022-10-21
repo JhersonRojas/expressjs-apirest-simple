@@ -64,13 +64,9 @@ const control = {}
 
                      resp.send({mensaje: "No se reservo", boolean})
                      console.log(datos.length)
-                     console.log(datos)
                                          
                  } else {
     
-                     console.log(datos.length)
-                     console.log(datos)
-
                       let sqlb = `insert into movimiento( Estado_Mv, Jornada, Cantidad, Sitio_Prestamo, Fecha_Inicio, Fk_elemento,Fk_usuario)
                         VALUES ('Reserva', '${jornada}', 1 ,'${sitio}', '${fecha}','${serial}', ${usuario})`;
                     
