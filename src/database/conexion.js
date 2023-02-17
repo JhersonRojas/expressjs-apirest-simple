@@ -1,4 +1,3 @@
-
     // <---------------- Importaciones ---------------->
 const mysql = require('mysql');
 
@@ -17,12 +16,9 @@ const conexion = mysql.createConnection (
 );
         // <-------------- Mensaje de conexión -------------->
 conexion.connect((error) => {
-    if (error) {
-        console.log ("Error al conectarse con una base de datos" + error);
-    } else {
-        console.log ("Conexión establecida con la base de datos");
-    }
+    if (error) console.log ("Error al conectarse con una base de datos" + error)
+    else console.log ("Conexión establecida con la base de datos");
 });
 
-    // <------------- Exportación de la conexón ------------->
-            module.exports = conexion;
+// <------------- Exportación de la conexón ------------->
+module.exports = conexion;
