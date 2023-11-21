@@ -1,21 +1,23 @@
-// <---------------- Importaciones ---------------->
-const express = require('express');
-const morgan = require ('morgan');
-const cors = require('cors');
-require('dotenv').config({path:'./src/env/.env'});
+// <--------------- Importaciones ---------------->
+const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
+
 const app = express();
 
-// <--------------- Puerto del server --------------->
-        puerto = 3100;
-app.listen(puerto,() => {
-console.log("Servidor en el purto http://localhost:3100/")});
-app.get('/', (req,resp) => resp.send("El servidor se inicio con exito"))
-
-// <---------------- Permisos ---------------->
+// <--------------- Permisos ---------------->
 app.use(cors());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
+require("dotenv").config({ path: "./src/env/.env" });
 
-// <---------------- Rutas ---------------->
-app.use(require('./router/rutas'))
+// <--------------- Rutas ---------------->
+app.use(require("./router/rutas"));
+
+// <--------------- Puerto del server ---------------->
+const PORT = 3000;
+
+app.listen(PORT, () => {
+  console.log("Servidor en el purto http://localhost:" + PORT);
+});
