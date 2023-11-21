@@ -1,64 +1,59 @@
+const conexion = require("../../database/conexion");
+const controlador = {};
 
-    // <---------------- Controlador ---------------->         
-    const conexion = require('../../database/conexion');
-    const controlador = {}
+controlador.programas = (req, res) => {
+    const sql = `select * from programa`;
 
-    // <---------------- Listar programas ---------------->         
-    controlador.programas= (req,res) =>{
-   
-    let sql = `select * from programa`;
-   
-    conexion.query(sql,(error,datos)=> {
-        if(error){
-            console.log('Error al conectar a la base de datos');
-        }else{
+    conexion.query(sql, (error, datos) => {
+        if (error) {
+            console.log("Error al conectar a la base de datos");
+        } else {
             res.json(datos);
         }
-    })};
+    });
+};
 
-    // <---------------- Registrar programas ---------------->         
-    controlador.registrarPrograma = (req,res)=> {
+controlador.registrarPrograma = (req, res) => {
+    const { ficha, programa } = req.body;
 
-    const {ficha, programa} = req.body;
-
-    let sql = `insert into programa(id_programa, nombre_programa)
+    const sql = `insert into programa(id_programa, nombre_programa)
     values('${ficha}', '${programa}')`;
-    
-    conexion.query(sql,(error,datos)=> {
-        if(error){ res.send('Error al registro el programa a la bd');
-        }else{
-            let mensaje = 'El programa se registro con exito'
-            res.json({mensaje})
+
+    conexion.query(sql, (error, datos) => {
+        if (error) {
+            res.send("Error al registro el programa a la bd");
+        } else {
+            const mensaje = "El programa se registro con exito";
+            res.json({ mensaje });
         }
-    })};
+    });
+};
 
-    // <---------------- Buscar un programa ---------------->         
-    controlador.buscarPrograma = (req,res) =>{
-    let fichaProgram = req.params.id;
-    let nata = `select * from programa where id_programa = ${fichaProgram}`;
-   
-    conexion.query(nata,(error,datos)=> {
-        if(error){
-            console.log('Error al conectar a la base de datos');
-        }else{
-            let mensaje = 'RESULTADOS!'
-            res.json({mensaje,datos});
+controlador.buscarPrograma = (req, res) => {
+    const fichaProgram = req.params.id;
+    const nata = `select * from programa where id_programa = ${fichaProgram}`;
+
+    conexion.query(nata, (error, datos) => {
+        if (error) {
+            console.log("Error al conectar a la base de datos");
+        } else {
+            const mensaje = "RESULTADOS!";
+            res.json({ mensaje, datos });
         }
-    })};
+    });
+};
 
-    // <---------------- Eliminar un programa ---------------->         
-    controlador.eliminarPrograma = (req,res) =>{
+controlador.eliminarPrograma = (req, res) => {
+    const id_prog = req.params.id_prog;
+    const sql = `delete from programa where id_programa = ${id_prog}`;
 
-    let id_prog = req.params.id_prog;
-    let sql = `delete from programa where id_programa = ${id_prog}`;
+    conexion.query(sql, (error, datos) => {
+        if (error) {
+            res.send("Error al eliminar el producto a la bd");
+        } else {
+            res.send("Se elimino el programa de la bd");
+        }
+    });
+};
 
-     conexion.query(sql,(error,datos)=> {
-     if(error){ res.send('Error al eliminar el producto a la bd');
-      }else{ 
-        
-       res.send('Se elimino el programa de la bd');
-    }
-    })};
-
-    // <---------------- Exportacion del controlador ---------------->         
-    module.exports = controlador;
+module.exports = controlador;
