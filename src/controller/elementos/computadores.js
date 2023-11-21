@@ -1,4 +1,4 @@
-const conexion = require("../../database/conexion");
+const conexion = require('../../database/conexion');
 const control = {};
 
 control.listarCompus = (req, res) => {
@@ -7,7 +7,7 @@ control.listarCompus = (req, res) => {
 
     conexion.query(sql, (error, datos) => {
         if (error) {
-            console.log("Error al conectar a la base de datos");
+            console.log('Error al conectar a la base de datos');
         } else {
             res.json(datos);
         }
@@ -58,16 +58,16 @@ control.reserComputadores = (req, resp) => {
     conexion.query(sql, (error, datos) => {
         if (error) {
             resp.send(error);
-            console.log("Ocurrio un error en la consulta");
+            console.log('Ocurrio un error en la consulta');
         } else {
             if (cantidad >= 1 && cantidad < datos[0].Stock) {
                 conexion.query(newStock, async (error, datos2) => {
                     if (error) {
-                        resp.send("Error al conectar a la base de datos", error);
+                        resp.send('Error al conectar a la base de datos', error);
                     } else {
                         const final = datos[0].Stock - cantidad;
                         await resp.json({
-                            msj: "El computador se reservo con exito",
+                            msj: 'El computador se reservo con exito',
                             Disponibles: final,
                         });
                     }
@@ -75,15 +75,15 @@ control.reserComputadores = (req, resp) => {
 
                 conexion.query(sqlc, async (error, datos3) => {
                     if (error) {
-                        resp.send("Error al conectar a la base de datos", error);
+                        resp.send('Error al conectar a la base de datos', error);
                     } else {
-                        console.log("Se ha realizado la reserva de un computador");
+                        console.log('Se ha realizado la reserva de un computador');
                     }
                 });
             } else {
                 resp.send({
                     estado: false,
-                    msj: "Lo siento, debe elegir una cantidad valida",
+                    msj: 'Lo siento, debe elegir una cantidad valida',
                 });
             }
         }
